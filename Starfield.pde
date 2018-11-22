@@ -8,7 +8,7 @@ int x, y;
 Particle[] particle = new Particle[100];
 
 void setup() {
-  size(700,700);
+  size(500,500);
   x = width / 2;
   y = height / 2;
   rectMode(CENTER);
