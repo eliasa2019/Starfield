@@ -26,6 +26,7 @@ void draw() {
     // Show the particle if the distance from origin is greater than 5 pixels. Eliminates constant appearance of particles at the center
     if(sqrt((particle[i].getX()-x)*(particle[i].getX()-x)+(particle[i].getY()-y)*(particle[i].getY()-y)) > 5) particle[i].show();
     particle[i].move();
+    // If the particle is off-screen generate a new one at (x, y)
     if (particle[i].getX() < 0 || width < particle[i].getX() || particle[i].getY() < 0 || height < particle[i].getY()) {
       switch(i) {
       case 0:
@@ -58,14 +59,14 @@ class NormalParticle implements Particle {
     this.x = mouseX;
     this.y = mouseY;
     this.speed = (float)(Math.random()*10)+5;
-    this.angle = (float)(Math.random()*TAU);
+    this.angle = (float)(Math.random()*TWO_PI);
     this.c = color((int)(Math.random()*128)+128,(int)(Math.random()*128)+128,(int)(Math.random()*128)+128);
   }
   NormalParticle(int x, int y) {
     this.x = x;
     this.y = y;
     this.speed = (float)(Math.random()*10)+5;
-    this.angle = (float)(Math.random()*TAU);
+    this.angle = (float)(Math.random()*TWO_PI);
     this.c = color((int)(Math.random()*128)+128,(int)(Math.random()*128)+128,(int)(Math.random()*128)+128);
   }
 
