@@ -5,6 +5,8 @@
 
 int width = 700;
 int height = 700;
+int x = width / 2;
+int y = height / 2;
 Particle[] particle = new Particle[100];
 
 void settings() {
@@ -15,31 +17,34 @@ void setup() {
   rectMode(CENTER);
   particle[0] = new OddballParticle(width / 2, height / 2);
   particle[1] = new JumboParticle(width / 2, height / 2);
-  for (int i = 2; i < particle.length; i++) particle[i] = new NormalParticle(width / 2, height / 2);
+  for (int i = 2; i < particle.length; i++) particle[i] = new NormalParticle(x, y);
   background(0);
 }
 
 void draw() {
   background(0);
   for (int i = 0; i < particle.length; i++) {
+    if(sqrt((particle[i].getX()-x)*(particle[i].getX()-x)+(particle[i].getY()-y)*(particle[i].getY()-y)) > 5)    // If particle's coords are sufficiently away enough from the origin
     particle[i].show();
     particle[i].move();
     if (particle[i].getX() < 0 || width < particle[i].getX() || particle[i].getY() < 0 || height < particle[i].getY()) {
       switch(i) {
       case 0:
-        particle[i] = new OddballParticle(width / 2, height / 2);
+        particle[i] = new OddballParticle(x, y);
         break;
       case 1:
-        particle[i] = new JumboParticle(width / 2, height / 2);
+        particle[i] = new JumboParticle(x, y);
         break;
       default:
-        particle[i] = new NormalParticle(width / 2, height / 2);
+        particle[i] = new NormalParticle(x, y);
       }
     }
   }
 }
 
 void mouseClicked() {
+  x = mouseX;
+  y = mouseY;
   particle[0] = new OddballParticle();
   particle[1] = new JumboParticle();
   for (int i = 2; i < particle.length; i++) particle[i] = new NormalParticle();
@@ -47,20 +52,20 @@ void mouseClicked() {
 }
 
 class NormalParticle implements Particle {
-  float x, y, speed, angle;
+  private float x, y, speed, angle;
   int[] colour = new int[3];
 
   NormalParticle() {
     this.x = mouseX;
     this.y = mouseY;
-    this.speed = (float)(Math.random()*10);
+    this.speed = (float)(Math.random()*10)+5;
     this.angle = (float)(Math.random()*TAU);
     for (int i = 0; i < colour.length; i++) this.colour[i] = (int)(Math.random()*128)+128;
   }
   NormalParticle(int x, int y) {
     this.x = x;
     this.y = y;
-    this.speed = (float)(Math.random()*10);
+    this.speed = (float)(Math.random()*10)+5;
     this.angle = (float)(Math.random()*TAU);
     for (int i = 0; i < colour.length; i++) this.colour[i] = (int)(Math.random()*128)+128;
   }
@@ -68,11 +73,11 @@ class NormalParticle implements Particle {
   public void move() {
     this.x += Math.sin(this.angle)*this.speed;
     this.y += Math.cos(this.angle)*this.speed;
-    this.speed *= 0.99;
+    this.speed *= 0.999;
   }
   public void show() {
     fill(this.colour[0], this.colour[1], this.colour[2]);
-    rect(this.x, this.y, 4, 4);
+    rect(this.x, this.y, this.speed / 3, this.speed / 3);    // Size is dependent on speed
   }
 
   public float getX() {
@@ -90,7 +95,7 @@ interface Particle {
 }
 class OddballParticle implements Particle
 {
-  float x, y;
+  private float x, y;
 
   OddballParticle() {
     this.x = mouseX;
@@ -119,13 +124,13 @@ class OddballParticle implements Particle
 }
 
 class JumboParticle extends NormalParticle implements Particle {
-  float x, y, speed, angle;
+  private float x, y, speed, angle;
   int[] colour = new int[3];
 
   JumboParticle() {
     this.x = mouseX;
     this.y = mouseY;
-    this.speed = (float)(Math.random()*10);
+    this.speed = (float)(Math.random()*10)+20;
     this.angle = (float)(Math.random()*TAU);
     for (int i = 0; i < colour.length; i++) colour[i] = (int)(Math.random()*128+128);
   }
@@ -139,12 +144,12 @@ class JumboParticle extends NormalParticle implements Particle {
 
   public void show() {
     fill(this.colour[0], this.colour[1], this.colour[2]);
-    rect(this.x, this.y, 8, 8);
+    rect(this.x, this.y, 10, 10);
   }
   public void move() {
     this.x += Math.sin(this.angle)*this.speed;
     this.y += Math.cos(this.angle)*this.speed;
-    this.speed *= 0.99;
+    this.speed *= 0.999;
   }
 
   public float getX() {
