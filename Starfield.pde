@@ -58,7 +58,7 @@ class NormalParticle implements Particle {
   NormalParticle() {
     this.x = mouseX;
     this.y = mouseY;
-    this.speed = (float)(Math.random()*10)+5;
+    this.speed = (float)(Math.random()*5)+5;
     this.angle = (float)(Math.random()*TWO_PI);
     this.c = color((int)(Math.random()*128)+128,(int)(Math.random()*128)+128,(int)(Math.random()*128)+128);
   }
