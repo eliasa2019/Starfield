@@ -60,7 +60,7 @@ class NormalParticle implements Particle {
   NormalParticle() {
     this.x = mouseX;
     this.y = mouseY;
-    this.speed = this.initialSpeed = (float)(Math.random()*5);
+    this.speed = this.initialSpeed = (float)(Math.random()*5)+2;
     this.angle = (float)(Math.random()*TWO_PI);
     this.i = 0;
     this.c = color((int)(Math.random()*128)+128,(int)(Math.random()*128)+128,(int)(Math.random()*128)+128);
@@ -77,7 +77,7 @@ class NormalParticle implements Particle {
   public void move() {
     this.x += Math.sin(this.angle)*this.speed;
     this.y += Math.cos(this.angle)*this.speed;
-    this.speed *= 0.998;
+    this.speed *= 0.9995;
     this.i++;
   }
   public void show() {
