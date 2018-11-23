@@ -77,7 +77,7 @@ class NormalParticle implements Particle {
   public void move() {
     this.x += Math.sin(this.angle)*this.speed;
     this.y += Math.cos(this.angle)*this.speed;
-    this.speed *= 0.995;
+    this.speed *= 0.998;
     this.i++;
   }
   public void show() {
