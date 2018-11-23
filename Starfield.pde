@@ -77,13 +77,13 @@ class NormalParticle implements Particle {
   public void move() {
     this.x += Math.sin(this.angle)*this.speed;
     this.y += Math.cos(this.angle)*this.speed;
-    this.speed *= 0.9995;
+    this.speed *= 1.01;
     this.i++;
   }
   public void show() {
     fill(c);
     // The size of the particle is dependent on its speed and the number of times it has moved, which furthers the three-dimensional illusion
-    rect(this.x, this.y, this.initialSpeed * this.i / 50, this.initialSpeed * this.i / 50);
+    rect(this.x, this.y, this.speed / 4, this.speed / 4);
   }
 
   public float getX() {
